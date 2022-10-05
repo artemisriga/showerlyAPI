@@ -4,6 +4,7 @@ import com.showerly.api.model.DataModel;
 import com.showerly.api.model.Shower;
 import com.showerly.api.repository.DataModelRepository;
 import com.showerly.api.repository.ShowerRepository;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.HashSet;
 
+@Api(tags = "Generate mock")
 @RestController
-@RequestMapping("/DEBUG")
-public class DebugController {
+@RequestMapping("/MOCK")
+public class MockGenerationController {
     @Autowired
     private DataModelRepository dataModelRepository;
     @Autowired
@@ -54,7 +55,7 @@ public class DebugController {
         this.generateDataModel(shower2, 35, 32, Instant.now().minus(52, ChronoUnit.MINUTES));
         this.generateDataModel(shower2, 31, 10, Instant.now().minus(51, ChronoUnit.MINUTES));
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     private void generateDataModel(Shower shower, int avgTemperature, int amountOfWater, Instant time) {

@@ -4,6 +4,7 @@ import com.showerly.api.model.Shower;
 import com.showerly.api.model.presentable.PresentableShower;
 import com.showerly.api.repository.ShowerRepository;
 import com.showerly.api.service.PresentableService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.UUID;
 
+@Api(tags = "1")
 @RestController
 @RequestMapping("/shower")
 public class ShowerController {
@@ -21,7 +23,7 @@ public class ShowerController {
     private PresentableService presentableService;
 
     @GetMapping("/token")
-    public ResponseEntity requestToken(@RequestParam String showerId) {
+    public ResponseEntity<String> requestToken(@RequestParam String showerId) {
         Optional<Shower> optionalShower = this.showerRepository.findById(showerId);
         if (optionalShower.isPresent()) {
             return ResponseEntity.status(400).body("Shower with id " + showerId + " already exists");
