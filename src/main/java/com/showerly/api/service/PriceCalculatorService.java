@@ -1,7 +1,6 @@
 package com.showerly.api.service;
 
 import com.showerly.api.model.DataModel;
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +15,11 @@ import java.time.ZoneId;
 @Service
 public class PriceCalculatorService {
 
-    private static float PRICE = 0;
+    private static float GASPRICE = 0;
     private static int DAYUPDATED = -1;
 
     public float calculatePrice(DataModel dataModel) {
-        float cents = Math.round(dataModel.getAmountOfWater() * PRICE);
+        float cents = Math.round(dataModel.getAmountOfWater() * GASPRICE);
         return (cents / 100);
     }
 
@@ -63,7 +62,7 @@ public class PriceCalculatorService {
             return;
         }
 
-        PRICE = result.getFloat("settlementPrice");
-        System.out.println("Price updated to: €" + (PRICE / 100));
+        GASPRICE = result.getFloat("settlementPrice");
+        System.out.println("Price updated to: €" + (GASPRICE / 100));
     }
 }
