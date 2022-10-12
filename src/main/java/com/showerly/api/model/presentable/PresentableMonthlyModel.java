@@ -7,6 +7,6 @@ import java.util.List;
 @Data
 public class PresentableMonthlyModel {
     private int month;
-    private double pricePerMonth;
+    private float pricePerMonth;
     private List<PresentableDailyModel> dailyModels;
 }

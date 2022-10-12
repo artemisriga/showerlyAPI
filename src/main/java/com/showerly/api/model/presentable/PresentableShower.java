@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class PresentableShower {
-    private double totalPriceToday;
+    private float totalPriceToday;
     private List<PresentableMonthlyModel> monthlyModels;
 }

@@ -17,8 +17,6 @@ import java.util.List;
 
 @Service
 public class PresentableService {
-    private static String TIMEZONE = "Europe/Amsterdam";
-
     @Autowired
     private ShowerRepository showerRepository;
 
@@ -61,7 +59,7 @@ public class PresentableService {
             for (PresentableMonthlyModel presentableMonthlyModel : monthlyModels) {
                 if (presentableMonthlyModel.getMonth() == getMonth(dataModel.getTime())) {
 
-                    double priceOfDataModel = this.priceCalculatorService.calculatePrice(dataModel);
+                    float priceOfDataModel = this.priceCalculatorService.calculatePrice(dataModel);
 
                     for (PresentableDailyModel presentableDailyModel : presentableMonthlyModel.getDailyModels()) {
                         if (presentableDailyModel.getDay() == this.getDay(dataModel.getTime())) {
@@ -95,7 +93,8 @@ public class PresentableService {
     }
 
     private int getMonth(Instant time) {
-        return time.atZone(ZoneId.of(TIMEZONE)).getMonth().getValue();
+        String timezone = "Europe/Amsterdam";
+        return time.atZone(ZoneId.of(timezone)).getMonth().getValue();
     }
 
     private int getDay() {
@@ -103,7 +102,8 @@ public class PresentableService {
     }
 
     private int getDay(Instant time) {
-        return time.atZone(ZoneId.of(TIMEZONE)).getDayOfMonth();
+        String timezone = "Europe/Amsterdam";
+        return time.atZone(ZoneId.of(timezone)).getDayOfMonth();
     }
 
     private int modulo12(int i) {
