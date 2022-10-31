@@ -26,7 +26,8 @@ public class ShowerController {
     public ResponseEntity<String> requestToken(@RequestParam String showerId) {
         Optional<Shower> optionalShower = this.showerRepository.findById(showerId);
         if (optionalShower.isPresent()) {
-            return ResponseEntity.status(400).body("Shower with id " + showerId + " already exists");
+            Shower shower = this.showerRepository.getById(showerId);
+            return ResponseEntity.status(200).body(shower.getToken());
         }
 
         Shower shower = new Shower();

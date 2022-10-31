@@ -19,8 +19,21 @@ public class PriceCalculatorService {
     private static int DAYUPDATED = -1;
 
     public float calculatePrice(DataModel dataModel) {
-        float cents = Math.round(dataModel.getAmountOfWater() * GASPRICE);
-        return (cents / 100);
+//        float cents = Math.round(dataModel.getAmountOfWater() * GASPRICE);
+//        return (cents / 100);
+        float amountOfWater = dataModel.getAmountOfWater();
+        float avgtemp = dataModel.getAvgTemperature() - 10;
+        float WaterPrice = 0.00089f;
+        //Beginning calculations
+        float Qenergy = (float) (amountOfWater * 4186 * avgtemp);
+//        float CombustionHeatOfGas = (float) 35.17;
+//        float GasVolumeInLiters = Qenergy / CombustionHeatOfGas;
+//        float GasVolumeInCubicMeters = GasVolumeInLiters / 1000;
+        float gas = Qenergy/263775;
+        float Price = ((float) (GASPRICE * 0.75 * gas) + (WaterPrice * amountOfWater))/10;
+        float finalPriceToReturn = Math.round(Price);
+        return finalPriceToReturn /100;
+
     }
 
     public static void updatePrice() {
